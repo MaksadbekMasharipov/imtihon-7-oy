@@ -1,0 +1,16 @@
+{
+  "name": "exam-7-oy",
+  "version": "1.0.0",
+  "description": "Education CRM - Main workspace",
+  "scripts": {
+    "start:dev": "cd crm-backend && npm run start:dev",
+    "start:prod": "cd crm-backend && npm run start:prod",
+    "build": "cd crm-backend && npm run build",
+    "lint": "cd crm-backend && npm run lint",
+    "test": "cd crm-backend && npm test",
+    "test:e2e": "cd crm-backend && npm run test:e2e"
+  },
+  "workspaces": [
+    "crm-backend"
+  ]
+}

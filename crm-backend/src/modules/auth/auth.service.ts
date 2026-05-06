@@ -1,7 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { Role } from '../../common/enums/role.enum';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -9,6 +11,17 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
+
+  async register(dto: RegisterDto, currentUserRole: string) {
+    // if (currentUserRole !== Role.SUPERADMIN) {
+    //   throw new ForbiddenException('Only SUPERADMIN can register new users');
+    // }
+    return this.usersService.create({
+      email: dto.email,
+      password: dto.password,
+      role: dto.role,
+    });
+  }
 
   async login(dto: LoginDto) {
     const user = await this.usersService.findByEmail(dto.email);

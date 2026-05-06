@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-/** Murojaatlar — public intake form; name avoids clash with Express `Request` */
+// Public intake form; class name avoids clash with Express `Request`
 @Entity('contact_requests')
 export class ContactRequest {
   @PrimaryGeneratedColumn('uuid')
