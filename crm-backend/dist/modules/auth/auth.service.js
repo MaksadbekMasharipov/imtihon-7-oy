@@ -13,6 +13,7 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
+const role_enum_1 = require("../../common/enums/role.enum");
 let AuthService = class AuthService {
     usersService;
     jwtService;
@@ -21,10 +22,28 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async register(dto, currentUserRole) {
+        if (currentUserRole !== role_enum_1.Role.SUPERADMIN) {
+            throw new common_1.ForbiddenException('Only SUPERADMIN can register new users');
+        }
         return this.usersService.create({
             email: dto.email,
             password: dto.password,
             role: dto.role,
+        });
+    }
+    async registerSuperAdmin(dto) {
+        const existingUser = await this.usersService.findByEmail(dto.email);
+        if (existingUser) {
+            throw new common_1.ConflictException('User already exists');
+        }
+        const existingSuperAdmin = await this.usersService.findOneByRole(role_enum_1.Role.SUPERADMIN);
+        if (existingSuperAdmin) {
+            throw new common_1.ForbiddenException('SUPERADMIN already exists');
+        }
+        return this.usersService.create({
+            email: dto.email,
+            password: dto.password,
+            role: role_enum_1.Role.SUPERADMIN,
         });
     }
     async login(dto) {

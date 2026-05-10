@@ -26,6 +26,10 @@ export class UsersService {
     });
   }
 
+  async findOneByRole(role: Role): Promise<User | null> {
+    return this.usersRepo.findOne({ where: { role } });
+  }
+
   async create(data: {
     email: string;
     password: string;

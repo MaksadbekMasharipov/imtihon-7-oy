@@ -1,7 +1,8 @@
-import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ForbiddenException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { RegisterSuperAdminDto } from './dto/register-superadmin.dto';
 import { Role } from '../../common/enums/role.enum';
 import { RegisterDto } from './dto/register.dto';
 
@@ -13,13 +14,31 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto, currentUserRole: string) {
-    // if (currentUserRole !== Role.SUPERADMIN) {
-    //   throw new ForbiddenException('Only SUPERADMIN can register new users');
-    // }
+    if (currentUserRole !== Role.SUPERADMIN) {
+      throw new ForbiddenException('Only SUPERADMIN can register new users');
+    }
     return this.usersService.create({
       email: dto.email,
       password: dto.password,
       role: dto.role,
+    });
+  }
+
+  async registerSuperAdmin(dto: RegisterSuperAdminDto) {
+    const existingUser = await this.usersService.findByEmail(dto.email);
+    if (existingUser) {
+      throw new ConflictException('User already exists');
+    }
+
+    const existingSuperAdmin = await this.usersService.findOneByRole(Role.SUPERADMIN);
+    if (existingSuperAdmin) {
+      throw new ForbiddenException('SUPERADMIN already exists');
+    }
+
+    return this.usersService.create({
+      email: dto.email,
+      password: dto.password,
+      role: Role.SUPERADMIN,
     });
   }
 

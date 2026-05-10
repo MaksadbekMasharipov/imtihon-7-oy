@@ -15,10 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GroupsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
-const roles_guard_1 = require("../../common/guards/roles.guard");
-const roles_decorator_1 = require("../../common/decorators/roles.decorator");
-const role_enum_1 = require("../../common/enums/role.enum");
 const create_group_dto_1 = require("./dto/create-group.dto");
 const update_group_dto_1 = require("./dto/update-group.dto");
 const assign_teacher_dto_1 = require("./dto/assign-teacher.dto");
@@ -119,9 +115,6 @@ __decorate([
 ], GroupsController.prototype, "removeStudent", null);
 exports.GroupsController = GroupsController = __decorate([
     (0, swagger_1.ApiTags)('groups'),
-    (0, swagger_1.ApiBearerAuth)(),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.Role.ADMIN, role_enum_1.Role.TEACHER),
     (0, common_1.Controller)('groups'),
     __metadata("design:paramtypes", [groups_service_1.GroupsService])
 ], GroupsController);

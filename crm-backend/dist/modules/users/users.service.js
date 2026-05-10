@@ -68,6 +68,9 @@ let UsersService = class UsersService {
             relations: ['teacher'],
         });
     }
+    async findOneByRole(role) {
+        return this.usersRepo.findOne({ where: { role } });
+    }
     async create(data) {
         const passwordHash = await bcrypt.hash(data.password, 12);
         const user = this.usersRepo.create({

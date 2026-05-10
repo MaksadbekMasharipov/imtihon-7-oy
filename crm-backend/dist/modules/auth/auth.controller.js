@@ -18,6 +18,11 @@ const swagger_1 = require("@nestjs/swagger");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
 const register_dto_1 = require("./dto/register.dto");
+const register_superadmin_dto_1 = require("./dto/register-superadmin.dto");
+const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
+const roles_guard_1 = require("../../common/guards/roles.guard");
+const roles_decorator_1 = require("../../common/decorators/roles.decorator");
+const role_enum_1 = require("../../common/enums/role.enum");
 const current_user_decorator_1 = require("../../common/decorators/current-user.decorator");
 let AuthController = class AuthController {
     authService;
@@ -29,6 +34,9 @@ let AuthController = class AuthController {
     }
     register(dto, role) {
         return this.authService.register(dto, role);
+    }
+    registerSuperAdmin(dto) {
+        return this.authService.registerSuperAdmin(dto);
     }
 };
 exports.AuthController = AuthController;
@@ -43,6 +51,8 @@ __decorate([
 __decorate([
     (0, common_1.Post)('register'),
     (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.SUPERADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Register new user (SUPERADMIN only). Can create ADMIN or TEACHER accounts.' }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, current_user_decorator_1.CurrentUser)('role')),
@@ -50,6 +60,14 @@ __decorate([
     __metadata("design:paramtypes", [register_dto_1.RegisterDto, String]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('register-superadmin'),
+    (0, swagger_1.ApiOperation)({ summary: 'Register SUPERADMIN (test only)' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [register_superadmin_dto_1.RegisterSuperAdminDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "registerSuperAdmin", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
     (0, common_1.Controller)('auth'),

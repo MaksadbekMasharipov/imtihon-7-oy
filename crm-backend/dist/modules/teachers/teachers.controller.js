@@ -43,7 +43,7 @@ let TeachersController = class TeachersController {
 exports.TeachersController = TeachersController;
 __decorate([
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Create teacher (ADMIN)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Create teacher (ADMIN only)' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_teacher_dto_1.CreateTeacherDto]),
@@ -51,7 +51,7 @@ __decorate([
 ], TeachersController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Get all teachers (pagination + search) (ADMIN)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all teachers (pagination + search) (ADMIN only)' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [pagination_query_dto_1.PaginationQueryDto]),
@@ -59,7 +59,7 @@ __decorate([
 ], TeachersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: 'Get teacher by id (ADMIN)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Get teacher by id (ADMIN only)' }),
     (0, swagger_1.ApiParam)({ name: 'id' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -68,7 +68,7 @@ __decorate([
 ], TeachersController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: 'Update teacher (ADMIN)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Update teacher (ADMIN only)' }),
     (0, swagger_1.ApiParam)({ name: 'id' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -78,7 +78,7 @@ __decorate([
 ], TeachersController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    (0, swagger_1.ApiOperation)({ summary: 'Delete teacher (ADMIN)' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete teacher (ADMIN only)' }),
     (0, swagger_1.ApiParam)({ name: 'id' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

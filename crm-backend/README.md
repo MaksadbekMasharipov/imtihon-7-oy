@@ -23,7 +23,7 @@ npm run start:dev
 ```
 
 ### Swagger
-- Open `http://localhost:3000/docs`
+- Open `http://localhost:4001/docs`
 - Use `POST /auth/login` to get a token, then click **Authorize** and paste `Bearer <token>`.
 
 ### Notes

@@ -15,10 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
-const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
-const roles_guard_1 = require("../../common/guards/roles.guard");
-const roles_decorator_1 = require("../../common/decorators/roles.decorator");
-const role_enum_1 = require("../../common/enums/role.enum");
 const attendance_service_1 = require("./attendance.service");
 const mark_attendance_dto_1 = require("./dto/mark-attendance.dto");
 let AttendanceController = class AttendanceController {
@@ -69,9 +65,6 @@ __decorate([
 ], AttendanceController.prototype, "absent", null);
 exports.AttendanceController = AttendanceController = __decorate([
     (0, swagger_1.ApiTags)('attendance'),
-    (0, swagger_1.ApiBearerAuth)(),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(role_enum_1.Role.ADMIN, role_enum_1.Role.TEACHER),
     (0, common_1.Controller)('attendance'),
     __metadata("design:paramtypes", [attendance_service_1.AttendanceService])
 ], AttendanceController);
