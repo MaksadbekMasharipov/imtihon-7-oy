@@ -8,9 +8,9 @@ import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentsService } from './payments.service';
 
 @ApiTags('payments')
-// @ApiBearerAuth() // temporarily open for testing
-// @UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
-// @Roles(Role.ADMIN, Role.TEACHER) // temporarily open for testing
+@ApiBearerAuth('access-token') // temporarily open for testing
+@UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
+@Roles(Role.ADMIN, Role.SUPERADMIN) // temporarily open for testing
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}

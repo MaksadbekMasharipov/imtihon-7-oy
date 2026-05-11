@@ -19,9 +19,9 @@ import { AssignTeacherDto } from './dto/assign-teacher.dto';
 import { GroupsService } from './groups.service';
 
 @ApiTags('groups')
-// @ApiBearerAuth() // temporarily open for testing
-// @UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
-// @Roles(Role.ADMIN, Role.TEACHER) // temporarily open for testing
+@ApiBearerAuth('access-token') // temporarily open for testing
+@UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
+@Roles(Role.ADMIN, Role.SUPERADMIN) // temporarily open for testing
 @Controller('groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}

@@ -15,6 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TeachersController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const roles_guard_1 = require("../../common/guards/roles.guard");
+const roles_decorator_1 = require("../../common/decorators/roles.decorator");
+const role_enum_1 = require("../../common/enums/role.enum");
 const pagination_query_dto_1 = require("../../common/dto/pagination-query.dto");
 const create_teacher_dto_1 = require("./dto/create-teacher.dto");
 const update_teacher_dto_1 = require("./dto/update-teacher.dto");
@@ -87,6 +91,9 @@ __decorate([
 ], TeachersController.prototype, "remove", null);
 exports.TeachersController = TeachersController = __decorate([
     (0, swagger_1.ApiTags)('teachers'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.ADMIN, role_enum_1.Role.SUPERADMIN),
     (0, common_1.Controller)('teachers'),
     __metadata("design:paramtypes", [teachers_service_1.TeachersService])
 ], TeachersController);

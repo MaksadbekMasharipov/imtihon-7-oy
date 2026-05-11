@@ -20,9 +20,9 @@ export class RequestsController {
   }
 
   @Get()
-  // @ApiBearerAuth() // temporarily open for testing
-  // @UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
-  // @Roles(Role.ADMIN) // temporarily open for testing
+  @ApiBearerAuth('access-token') // temporarily open for testing
+  @UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
+  @Roles(Role.ADMIN, Role.SUPERADMIN) // temporarily open for testing
   @ApiOperation({ summary: 'Get all requests (public for testing)' })
   findAll(@Query() query: PaginationQueryDto) {
     return this.requestsService.findAll(query);

@@ -26,9 +26,9 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 import { StudentsService } from './students.service';
 
 @ApiTags('students')
-// @ApiBearerAuth('access-token') // temporarily open for testing
-// @UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
-// @Roles(Role.ADMIN, Role.TEACHER, Role.SUPERADMIN) // temporarily open for testing
+@ApiBearerAuth('access-token') // temporarily open for testing
+@UseGuards(JwtAuthGuard, RolesGuard) // temporarily open for testing
+@Roles(Role.ADMIN, Role.SUPERADMIN) // temporarily open for testing
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}

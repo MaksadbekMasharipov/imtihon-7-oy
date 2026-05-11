@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   @Post('register')
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.SUPERADMIN)
   @ApiOperation({ summary: 'Register new user (SUPERADMIN only). Can create ADMIN or TEACHER accounts.' })
